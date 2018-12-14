@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quest>
+    <name>The puzzle</name>
+    <desc>Вы очнулись в неизвестном для вас месте. Последнее ваше воспоминание - активация странного артефакта. Проверив свою сумку вы обнаружили лишь деталь того мистического предмета. К сожелению, вы слишком много отдали, чтобы просто смириться с потерей. Найдите остальные детали.</desc>
+    <steps>
+        <s>
+            <name>The Cube</name>
+            <desc>Найдите контейнер</desc>
+            <item>CubeFrame</item>
+            <npc>fallen_king</npc>
+            <loc>ruined_throne_room</loc>
+        </s>
+        <s>
+            <name>Activation</name>
+            <desc>Теперь когда артефакт снова в полной сборке, почему бы не активировать его ещё раз? Возможно он выведет вас из проклятого лабиринта.</desc>
+            <item>artifact</item>
+            <npc></npc>
+            <loc></loc>
+        </s>
+    </steps>
+    <rewards>
+        <events>
+            <e>
+                <probability>100</probability>
+                <name>Escape</name>
+                <description>Вы очнулись в своей постели. Последнее, что вы помните - активация мистического артефакта. Но ничего похожего по близости нет. Похоже ваше приключение вам приснилось</description>
+                <room_handler></room_handler>
+                <character_handler></character_handler>
+                <scenario_handler>win</scenario_handler>
+                <battle_handler></battle_handler>
+            </e>
+        </events>
+    </rewards>
+</quest>
