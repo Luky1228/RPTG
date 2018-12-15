@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as ET
-from scenario import *
+from room import *
 from sqlconfig import *
 
 
@@ -101,7 +101,9 @@ def read_npc(root):
             e = read_events(i)
         if i.tag == 'attacks':
             at = read_attacks(i)
-    return npc(n, b, hpm, dm, e, [], at)
+        if i.tag == 'friendly':
+            f = int(i.text)
+    return npc(n, b, hpm, dm, e, [], at, f)
 
 
 def read_npc_from_file(file):
@@ -129,6 +131,7 @@ def load_npc_from_db(name):
     myresult = mycursor.fetchone()
     mycursor.close()
     return myresult[0]
+
 
 # OBJECT CONSTRUCTOR
 
@@ -235,6 +238,7 @@ def read_quest_from_file(file):
     root = ET.fromstring(file)
     return read_quest(root)
 
+
 def store_quest_in_db(file):
     r = file
     root = ET.fromstring(r)
@@ -250,6 +254,99 @@ def store_quest_in_db(file):
 def load_quest_from_db(name):
     mycursor = mydb.cursor()
     sql = "SELECT xml FROM quests where name = %s"
+    val = (name,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchone()
+    mycursor.close()
+    return myresult[0]
+
+
+# ITEM CONSTRUCTOR
+
+def read_spells(root):
+    res = []
+    for child in root:
+        s = read_events(child)
+        for i in child:
+            if i.tag == 'name':
+                n = i.text
+            if i.tag == 'desc':
+                desc = i.text
+        res.append(spell([n, desc, s]))
+    return res
+
+
+def store_spell_in_db(file):
+    r = file
+    root = ET.fromstring(r)
+    name = root[0].text
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO spells (name, xml) VALUES (%s, %s)"
+    val = (name, r)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    mycursor.close()
+
+
+def load_spell_from_db(name):
+    mycursor = mydb.cursor()
+    sql = "SELECT xml FROM spells where name = %s"
+    val = (name,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchone()
+    mycursor.close()
+    return myresult[0]
+
+def toint(s):
+    if s is not None:
+        return int(s)
+    return None
+
+def read_item(root):
+    for i in root:
+        if i.tag == 'name':
+            n = i.text
+        if i.tag == 'desc':
+            desc = i.text
+        if i.tag == 'price':
+            p = toint(i.text)
+        if i.tag == 'type':
+            t = i.text
+        if i.tag == 'slot':
+            s = i.text
+        if i.tag == 'damage_reduction':
+            dr = toint(i.text)
+        if i.tag == 'damage':
+            d = toint(i.text)
+        if i.tag == 'aglm':
+            a = toint(i.text)
+        if i.tag == 'ctb':
+            c = toint(i.text)
+        if i.tag == 'spells':
+            sp = read_spells(i)
+    return item([n, desc, p, t, s, dr, d, a, c, sp])
+
+
+def read_item_from_file(file):
+    root = ET.fromstring(file)
+    return read_item(root)
+
+
+def store_item_in_db(file):
+    r = file
+    root = ET.fromstring(r)
+    name = root[0].text
+    mycursor = mydb.cursor()
+    sql = "INSERT INTO items (name, xml) VALUES (%s, %s)"
+    val = (name, r)
+    mycursor.execute(sql, val)
+    mydb.commit()
+    mycursor.close()
+
+
+def load_item_from_db(name):
+    mycursor = mydb.cursor()
+    sql = "SELECT xml FROM items where name = %s"
     val = (name,)
     mycursor.execute(sql, val)
     myresult = mycursor.fetchone()

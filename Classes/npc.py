@@ -1,4 +1,5 @@
 from random import randint as rd
+from random import choice as rc
 from actions import *
 
 
@@ -17,9 +18,9 @@ class bpart:
     def take_damage(self, d):
         self.hp = max(0, self.hp - d)
         if self.hp == 0:
-            return [self.destroy_desc, self.reaction, True]  # description, event, flag of destruction
+            return [self.destroy_desc, self.reaction, True, d]  # description, event, flag of destruction, damage
         else:
-            return [self.damage_desc, None, False]
+            return [self.damage_desc, None, False, d]
 
 
 class attack:
@@ -29,7 +30,7 @@ class attack:
 
 
 class npc:
-    def __init__(self, name, body, hpm, dm, de, actions, attacks):
+    def __init__(self, name, body, hpm, dm, de, actions, attacks, f):
         self.name = name
         self.body_map = body
         self.health_multiplier = hpm
@@ -37,12 +38,17 @@ class npc:
         self.death_event = de
         self.actions = actions
         self.attacks = attacks
+        self.friendly = f
+
+    def isfriendly(self):
+        return self.friendly
 
     def drop_damage_to(self, p):
         self.damage_multiplier = p
 
     def take_damage(self, p):
         l = len(self.body_map)
+        self.friendly = 0
         if l < 1:
             return ['Противник уже мертв', None]
         r = rd(0, l - 1)
@@ -53,6 +59,10 @@ class npc:
             if res[1] is not None:
                 res[1] = eval('self.' + res[1])
         return res
+
+    def deal_damage(self):
+        a = rc(self.attacks)
+        return a.desc, int(a.dmg*self.damage_multiplier/100)
 
     def kill(self):
         p = rd(0, 100)

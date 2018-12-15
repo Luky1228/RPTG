@@ -1,3 +1,5 @@
+from random import choice as rc
+
 class event:
     def __init__(self, name, p, desc, rh, ch, sh, bh):
         self.name = name
@@ -18,3 +20,6 @@ class action:
 
     def __str__(self):
         return self.name
+
+    def play_action(self):
+        return rc(self.events)
