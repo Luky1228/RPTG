@@ -1,7 +1,5 @@
-from npc import *
-from actions import *
-from character import *
-from builders import *
+from Classes.npc import *
+from Classes.character import *
 
 
 class room:

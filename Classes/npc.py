@@ -1,6 +1,6 @@
 from random import randint as rd
 from random import choice as rc
-from actions import *
+from Classes.actions import *
 
 
 class bpart:

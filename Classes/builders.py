@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
-from room import *
-from sqlconfig import *
+from Classes.room import *
+from Classes.sqlconfig import *
 
 
 # BODY CONSTRUCTOR

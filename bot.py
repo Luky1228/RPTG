@@ -1,14 +1,21 @@
-
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
 
 
-from settings import BOT_TOKEN
+from settings import LOCAL_BOT_TOKEN
 
 
 class Bot:
     def __init__(self):
-        self.updater = Updater(BOT_TOKEN)
+        REQUEST_KWARGS = {
+            'proxy_url': 'socks5://phobos.public.opennetwork.cc:1090',
+            # Optional, if you need authentication:
+            'urllib3_proxy_kwargs': {
+                'username': '139218367',
+                'password': 'UmKm1u6l',
+            }
+        }
+        self.updater = Updater(LOCAL_BOT_TOKEN, request_kwargs=REQUEST_KWARGS)
         self.dispatcher = self.updater.dispatcher
         self.setup_handlers()
 
