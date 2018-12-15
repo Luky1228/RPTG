@@ -26,16 +26,18 @@ class scenario:
         return res
 
     def battle(self):
-        while len(self.room.enemy_npc)>0:
+        while len(self.room.enemy_npc) > 0:
             if 'stun' not in self.hero.effects:
+                print("Выберите цель")
+                print("Ваши действия")
 
     def play_action(self, i):
         a = self.act_list[i]
         if a[3] == 'r':
             desc, e = self.room.play_action(a[2])[1]
             for i in e.character_handler:
-                    eval('self.hero.' + i)
+                eval('self.hero.' + i)
             for i in e.scenario_handler:
-                    eval('self.hero.' + i)
+                eval('self.hero.' + i)
         else:
             a[2]()
