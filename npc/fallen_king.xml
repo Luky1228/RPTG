@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc>
+    <name>fallen_king</name>
+    <hpm>100</hpm>
+    <dm>100</dm>
+    <body_map>
+        <name>king_body</name>
+        <parts>
+            <p>
+                <name>Torso</name>
+                <hp>100</hp>
+                <on_damage>
+                    <desc>Вы попали в туловище!</desc>
+                </on_damage>
+                <on_destroyed>
+                    <desc>Похоже вы смогли пробить доспехи.</desc>
+                    <room_handler></room_handler>
+                    <character_handler>kill()</character_handler>
+                </on_destroyed>
+            </p>
+            <p>
+                <name>Head</name>
+                <hp>50</hp>
+                <on_damage>
+                    <desc>Прямо в голову!</desc>
+                </on_damage>
+                <on_destroyed>
+                    <desc>Удар оказался слишком тяжел даже для неживого короля</desc>
+                    <room_handler></room_handler>
+                    <character_handler>kill()</character_handler>
+                </on_destroyed>
+            </p>
+            <p>
+                <name>ArmR</name>
+                <hp>25</hp>
+                <on_damage>
+                    <desc>Король парирует!</desc>
+                </on_damage>
+                <on_destroyed>
+                    <desc>Но ломает руку...</desc>
+                    <room_handler></room_handler>
+                    <character_handler>drop_damage_to(50)</character_handler>
+                </on_destroyed>
+            </p>
+            <p>
+                <name>ArmL</name>
+                <hp>1000</hp>
+                <on_damage>
+                    <desc>Король блокирует ваш удар!</desc>
+                </on_damage>
+                <on_destroyed>
+                    <desc>Но это не помешала вам отрубить руку!</desc>
+                    <room_handler></room_handler>
+                    <character_handler></character_handler>
+                </on_destroyed>
+            </p>
+            <p>
+                <name>LegL</name>
+                <hp>25</hp>
+                <on_damage>
+                    <desc>Вы попали по ноге!</desc>
+                </on_damage>
+                <on_destroyed>
+                    <desc>Вы сломали ногу...</desc>
+                    <room_handler></room_handler>
+                    <character_handler></character_handler>
+                </on_destroyed>
+            </p>
+            <p>
+                <name>LegR</name>
+                <hp>25</hp>
+                <on_damage>
+                    <desc>Вы попали по ноге!</desc>
+                </on_damage>
+                <on_destroyed>
+                    <desc>Вы сломали ногу...</desc>
+                    <room_handler></room_handler>
+                    <character_handler></character_handler>
+                </on_destroyed>
+            </p>
+        </parts>
+    </body_map>
+    <on_death>
+        <desc></desc>
+        <e>
+            <probability>100</probability>
+            <name>defeat</name>
+            <description>Король повержен!</description>
+            <room_handler>drop_random_loot()</room_handler>
+            <character_handler></character_handler>
+            <scenario_handler></scenario_handler>
+            <battle_handler></battle_handler>
+        </e>
+    </on_death>
+    <actions>
+    </actions>
+    <attacks>
+        <at>
+            <desc>Король наносит удар!</desc>
+            <damage>10</damage>
+        </at>
+        <at>
+            <desc>Король использует нечестивый крик</desc>
+            <damage>15</damage>
+        </at>
+    </attacks>
+    <friendly>0</friendly>
+</npc>

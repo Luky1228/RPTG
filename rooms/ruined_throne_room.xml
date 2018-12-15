@@ -14,7 +14,7 @@
             <actions>
                 <a>
                     <name>Throw a rock</name>
-                    <keywords>(кинуть камень)</keywords>
+                    <keywords>(кинуть камень )</keywords>
                     <events>
                         <e>
                             <probability>50</probability>
@@ -62,7 +62,7 @@
             <actions>
                 <a>
                     <name>search_skeletons</name>
-                    <keywords>обыскать</keywords>
+                    <keywords>(обыскать)</keywords>
                     <events>
                         <e>
                             <probability>30</probability>
@@ -90,7 +90,7 @@
     </r_obs>
     <e_obs>
         <obj>
-            <probability>100</probability>
+            <probability>50</probability>
             <name>Throne</name>
             <ob_desc>В центре зала стоит трон.</ob_desc>
             <actions>
@@ -103,7 +103,7 @@
             <actions>
                 <a>
                     <name>take_artifact</name>
-                    <keywords>взять|забрать артефакт</keywords>
+                    <keywords>((взять|забрать) артефакт)</keywords>
                     <events>
                         <e>
                             <probability>50</probability>
@@ -119,7 +119,7 @@
                             <name>king_dead</name>
                             <description>Фигура крепко держит артефакт. Вы используете свое оружие чтобы освободить артефакт. Грубо и безрассудно, но к счастью для вас, артефакт остался невредим.</description>
                             <room_handler></room_handler>
-                            <character_handler>inventory_add('artifact')</character_handler>
+                            <character_handler>inventory_add('cubeframe')</character_handler>
                             <scenario_handler></scenario_handler>
                             <battle_handler></battle_handler>
                         </e>

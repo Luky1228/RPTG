@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
-from Classes.room import *
 from Classes.sqlconfig import *
+from Classes.npc import *
+from textwrap import dedent as td
 
 
 # BODY CONSTRUCTOR
@@ -168,7 +169,7 @@ def read_room(root):
         if i.tag == 'name':
             n = i.text
         if i.tag == 'text_map':
-            tm = i.text.replace('\n', '').replace('\t', '')
+            tm = td(i.text.replace('\n', '').replace('\t', ''))
         if i.tag == 'r_obs':
             for j in i:
                 obs = read_object(j)
@@ -180,7 +181,7 @@ def read_room(root):
                 e_desc += obs[0]
                 actions += obs[1]
     text = tm.replace('|r_obs', r_desc + '\n').replace('|e_obs', e_desc + '\n')
-    return room([n, text, actions])
+    return [n, text, actions]
 
 
 def read_room_from_file(file):
@@ -215,7 +216,7 @@ def load_room_from_db(name):
 def read_steps(root):
     steps = []
     for s in root:
-        steps.append([s[0].text, s[1].text, clfs(s[2].text), clfs(s[3].text), clfs(s[4].text)])
+        steps.append(step([s[0].text, s[1].text, clfs(s[2].text), clfs(s[3].text), clfs(s[4].text)]))
     return steps
 
 
@@ -264,7 +265,7 @@ def load_quest_from_db(name):
 # ITEM CONSTRUCTOR
 
 def read_spells(root):
-    res = []
+    res = dict()
     for child in root:
         s = read_events(child)
         for i in child:
@@ -272,7 +273,7 @@ def read_spells(root):
                 n = i.text
             if i.tag == 'desc':
                 desc = i.text
-        res.append(spell([n, desc, s]))
+        res[n] = spell([n, desc, s])
     return res
 
 
@@ -297,10 +298,12 @@ def load_spell_from_db(name):
     mycursor.close()
     return myresult[0]
 
+
 def toint(s):
     if s is not None:
         return int(s)
     return None
+
 
 def read_item(root):
     for i in root:
@@ -348,6 +351,21 @@ def load_item_from_db(name):
     mycursor = mydb.cursor()
     sql = "SELECT xml FROM items where name = %s"
     val = (name,)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchone()
+    mycursor.close()
+    return myresult[0]
+
+def load_random_item_from_db():
+    mycursor = mydb.cursor()
+    sql = "SELECT COUNT(*) FROM items"
+    mycursor.execute(sql)
+    c = mycursor.fetchone()[0]
+    mycursor.close()
+    n=rd(0, c)
+    mycursor = mydb.cursor()
+    sql = "SELECT xml FROM items LIMIT %s,1"
+    val = (n-1,)
     mycursor.execute(sql, val)
     myresult = mycursor.fetchone()
     mycursor.close()

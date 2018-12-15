@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+    <name>staff</name>
+    <desc>Обыкновенный посох</desc>
+    <price>1</price>
+    <type>equipment</type>
+    <slot>weapon</slot>
+    <damage_reduction></damage_reduction>
+    <damage>10</damage>
+    <aglm>0</aglm>
+    <ctb>5</ctb>
+    <spells>
+        <sp>
+            <name>fireball</name>
+            <desc>С помощью магии сформировавать огненный шар</desc>
+            <e>
+                <probability>100</probability>
+                <name>fireball</name>
+                <description>Сформировав сферу достаточного размера вы направляете её на противника</description>
+                <room_handler></room_handler>
+                <character_handler></character_handler>
+                <scenario_handler></scenario_handler>
+                <battle_handler>damage(target, 20)</battle_handler>
+            </e>
+        </sp>
+        <sp>
+            <name>ice_wall</name>
+            <desc>С помощью магии создать непроходиму ледяную стену</desc>
+            <e>
+                <probability>100</probability>
+                <name>fireball</name>
+                <description>Вы возводите ледяной барьер.</description>
+                <room_handler></room_handler>
+                <character_handler></character_handler>
+                <scenario_handler></scenario_handler>
+                <battle_handler>give_absolute_block(1)</battle_handler>
+            </e>
+        </sp>
+    </spells>
+</item>

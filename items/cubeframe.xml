@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+    <name>cubeframe</name>
+    <desc>Мистичекий кубический объект. Скорее всего деталь артефакта</desc>
+    <price>0</price>
+    <type>item</type>
+    <slot></slot>
+    <damage_reduction></damage_reduction>
+    <damage></damage>
+    <aglm></aglm>
+    <ctb></ctb>
+    <spells>
+    </spells>
+</item>

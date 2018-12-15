@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+    <name>robe</name>
+    <desc>Обыкновенная роба</desc>
+    <price>1</price>
+    <type>equipment</type>
+    <slot>middle</slot>
+    <damage_reduction>5</damage_reduction>
+    <damage></damage>
+    <aglm>1</aglm>
+    <ctb></ctb>
+    <spells>
+    </spells>
+</item>
