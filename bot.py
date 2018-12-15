@@ -1,14 +1,9 @@
-import apiclient
-from httplib2 import Http
-from oauth2client import file, client, tools
-import datetime
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackQueryHandler
 from telegram import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
 
-from settings import BOT_TOKEN
 
-import sqlite3 as sql
+from settings import BOT_TOKEN
 
 
 class Bot:
@@ -26,32 +21,39 @@ class Bot:
     def start(self, bot, update):
         keyboard = [[KeyboardButton("Create a hero")], [KeyboardButton("Become immortal")], [KeyboardButton("#nickzatknis")]]
         reply_markup = ReplyKeyboardMarkup(keyboard=keyboard)
-        bot.send_message(chat_id=update.message.chat.id, text='Что бы вы хотели сделать?',
-                             reply_markup=reply_markup)
+        bot.send_message(chat_id=update.message.chat.id, text='What would you like to do?', reply_markup=reply_markup)
 
     def process(self, bot, update):
-        word = update.callback_query.data
-        chatid = update.callback_query.message.chat_id
-        if word == 'Create a hero':
-            create_a_hero()
-        else:
-            dont()
-        whatever()
         pass
 
     def answer(self, bot, update):
-        '''
-        handles any text input
-        :param bot:
-        :param update:
-        :return:
-        '''
+        word = update.message.text
+        chatid = update.message.chat.id
+        if word == 'Create a hero':
+            keyboard = [[KeyboardButton("Oknight")], [KeyboardButton("Helf")], [KeyboardButton("Gnome")]]
+            reply_markup = ReplyKeyboardMarkup(keyboard=keyboard)
+            bot.send_message(chat_id=chatid, text='Choose a hero!', reply_markup=reply_markup)
+        elif word in ['Oknight', 'Helf', 'Gnome']:
+            keyboard = [[KeyboardButton("Forest adventure")], [KeyboardButton("Weird adventure")], [KeyboardButton("#nickzatknis")], [KeyboardButton("Back to menu")]]
+            reply_markup = ReplyKeyboardMarkup(keyboard=keyboard)
+            bot.send_message(chat_id=update.message.chat.id, text='Great! Now choose an adventure:', reply_markup=reply_markup)
+        elif word == 'Become immortal':
+            bot.send_message(chat_id=chatid, text='R u sure about that?')
+        elif word == '#nickzatknis':
+            pass
+        elif word == "Back to menu":
+            keyboard = [[KeyboardButton("Create a hero")], [KeyboardButton("Become immortal")], [KeyboardButton("#nickzatknis")]]
+            reply_markup = ReplyKeyboardMarkup(keyboard=keyboard)
+            bot.send_message(chat_id=update.message.chat.id, text='What would you like to do?', reply_markup=reply_markup)
+        else:
+            bot.send_message(chat_id=chatid, text='Me no comprendo')
 
     def work(self):
         self.updater.start_polling()
 
     def stop(self):
         self.updater.stop()
+
 
 bot = Bot()
 bot.work()
