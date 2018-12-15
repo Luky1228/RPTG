@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<body_map>
+    <name>human_hero_body</name>
+    <parts>
+        <p>
+            <name>Torso</name>
+            <hp>100</hp>
+            <on_damage>
+                <desc>_monster_ наносит удар по туловищу</desc>
+            </on_damage>
+            <on_destroyed>
+                <desc>Прямо в сердце!</desc>
+                <room_handler></room_handler>
+                <character_handler>kill</character_handler>
+            </on_destroyed>
+            <slot>upper</slot>
+        </p>
+        <p>
+            <name>Head</name>
+            <hp>50</hp>
+            <on_damage>
+                <desc>_monster_ наносит удар по голове</desc>
+            </on_damage>
+            <on_destroyed>
+                <desc>К сожалению, вам проломили голову.</desc>
+                <room_handler></room_handler>
+                <character_handler>kill</character_handler>
+            </on_destroyed>
+            <slot>head</slot>
+        </p>
+        <p>
+            <name>ArmL</name>
+            <hp>25</hp>
+            <on_damage>
+                <desc>Вы блокируете удар левой рукой.</desc>
+            </on_damage>
+            <on_destroyed>
+                <desc>Ваша рука сломана</desc>
+                <room_handler></room_handler>
+                <character_handler>DropManip</character_handler>
+            </on_destroyed>
+            <slot>upper</slot>
+        </p>
+        <p>
+            <name>ArmR</name>
+            <hp>25</hp>
+            <on_damage>
+                <desc>Вы блокируете удар правой рукой.</desc>
+            </on_damage>
+            <on_destroyed>
+                <desc>Ваша рука сломана</desc>
+                <room_handler></room_handler>
+                <character_handler>DropManip</character_handler>
+            </on_destroyed>
+            <slot>upper</slot>
+        </p>
+        <p>
+            <name>LegR</name>
+            <hp>25</hp>
+            <on_damage>
+                <desc>Удар пришелся на правую ногу.</desc>
+            </on_damage>
+            <on_destroyed>
+                <desc>Ваша нога сломана</desc>
+                <room_handler></room_handler>
+                <character_handler>DropAgil</character_handler>
+            </on_destroyed>
+            <slot>bottom</slot>
+        </p>
+        <p>
+            <name>LegL</name>
+            <hp>25</hp>
+            <on_damage>
+                <desc>Удар пришелся на левую ногу.</desc>
+            </on_damage>
+            <on_destroyed>
+                <desc>Ваша нога сломана</desc>
+                <room_handler></room_handler>
+                <character_handler>DropAgil</character_handler>
+            </on_destroyed>
+            <slot>bottom</slot>
+        </p>
+    </parts>
+</body_map>

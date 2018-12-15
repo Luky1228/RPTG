@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<room>
+    <name>ruined_throne_room</name>
+    <text_map>
+        Вы попали в большой зал. На стенах вы видите разные изображения и надписи на неизвестном вам языке.
+        |r_obs
+        |e_obs
+    </text_map>
+    <r_obs>
+        <obj>
+            <probability>50</probability>
+            <name>rocks</name>
+            <ob_desc></ob_desc>
+            <actions>
+                <a>
+                    <name>Throw a rock</name>
+                    <keywords>Throw</keywords>
+                    <events>
+                        <e>
+                            <probability>50</probability>
+                            <name>hit</name>
+                            <description></description>
+                            <room_handler></room_handler>
+                            <character_handler></character_handler>
+                            <scenario_handler></scenario_handler>
+                            <battle_handler>Damage_Random_mob(5)</battle_handler>
+                        </e>
+                        <e>
+                            <probability>50</probability>
+                            <name>miss</name>
+                            <description>Вы промахнулись</description>
+                            <room_handler></room_handler>
+                            <character_handler></character_handler>
+                            <scenario_handler></scenario_handler>
+                            <battle_handler></battle_handler>
+                        </e>
+                    </events>
+                    <hints>Throw a rock</hints>
+                </a>
+                <a>
+                    <name>Take a rock</name>
+                    <keywords>Take</keywords>
+                    <events>
+                        <e>
+                            <probability>50</probability>
+                            <name>hit</name>
+                            <description></description>
+                            <room_handler></room_handler>
+                            <character_handler>inventory_add('rock')</character_handler>
+                            <scenario_handler></scenario_handler>
+                            <battle_handler></battle_handler>
+                        </e>
+                    </events>
+                    <hints>Throw a rock</hints>
+                </a>
+            </actions>
+        </obj>
+        <obj>
+            <probability>30</probability>
+            <name>skeleton</name>
+            <ob_desc>Комната усыпана скелетами разных существ</ob_desc>
+            <actions>
+                <a>
+                    <name>search_skeletons</name>
+                    <keywords>обыскать</keywords>
+                    <events>
+                        <e>
+                            <probability>30</probability>
+                            <name>found_item</name>
+                            <description>Вы нашли что-то</description>
+                            <room_handler></room_handler>
+                            <character_handler>inventory_add_random_item()</character_handler>
+                            <scenario_handler></scenario_handler>
+                            <battle_handler></battle_handler>
+                        </e>
+                    </events>
+                    <events>
+                        <e>
+                            <probability>50</probability>
+                            <name>walking_dead</name>
+                            <description>Как только вы дотронулись скелета он зашевелился. Похоже это место проклято</description>
+                            <room_handler>spawn_npc('skeleton')|spawn_effect('fear')</room_handler>
+                            <character_handler></character_handler>
+                            <scenario_handler></scenario_handler>
+                            <battle_handler></battle_handler>
+                        </e>
+                    </events>
+                    <hints>Обыскать скелеты</hints>
+                </a>
+            </actions>
+        </obj>
+    </r_obs>
+    <e_obs>
+        <obj>
+            <probability>100</probability>
+            <name>Throne</name>
+            <ob_desc>В центре зала стоит трон.</ob_desc>
+            <actions>
+            </actions>
+        </obj>
+        <obj>
+            <probability>100</probability>
+            <name>fallen_king</name>
+            <ob_desc>На троне сидит непонятная человекоподобная фигура. Судя по короне на голове фигуры, это павший король из летописи. В руках неподвижного существа находится непонятный объект кубической формы.</ob_desc>
+            <actions>
+                <a>
+                    <name>take_artifact</name>
+                    <keywords>взять|забрать артефакт</keywords>
+                    <events>
+                        <e>
+                            <probability>50</probability>
+                            <name>king_alive</name>
+                            <description>Как только вы решили подойти к трону, фигура зашевелилась</description>
+                            <room_handler>spawn_npc('fallen_king')</room_handler>
+                            <character_handler></character_handler>
+                            <scenario_handler></scenario_handler>
+                            <battle_handler></battle_handler>
+                        </e>
+                    </events>
+                    <events>
+                        <e>
+                            <probability>50</probability>
+                            <name>king_dead</name>
+                            <description>Фигура крепко держит артефакт. Вы используете свое оружие чтобы освободить артефакт. Грубо и безрассудно, но к счастью для вас, артефакт остался невредим.</description>
+                            <room_handler></room_handler>
+                            <character_handler>inventory_add('artifact')</character_handler>
+                            <scenario_handler></scenario_handler>
+                            <battle_handler></battle_handler>
+                        </e>
+                    </events>
+                    <hints>Забрать артефакт</hints>
+                </a>
+            </actions>
+        </obj>
+    </e_obs>
+</room>
