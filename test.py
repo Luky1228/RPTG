@@ -32,5 +32,4 @@ while True:
         res=s.check_for_action(msg)
         if res is not None:
             print(res)
-
 '''

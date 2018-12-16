@@ -29,7 +29,7 @@ class character:
         self.inventory = []
         self.equipment = ['none', 0, 0] * 3  # name, agility in %, damage reduction in %
         self.weapon = read_item_from_file(load_item_from_db('stick'))
-        if role == 3:
+        if role == 'Mage':
             armor = ['robe']
             self.weapon = read_item_from_file(load_item_from_db('staff'))
             for i in armor:

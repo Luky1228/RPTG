@@ -41,7 +41,7 @@ class scenario:
     def check_for_action(self, msg):
         for i in range(len(self.act_list)):
             if re.search(r'' + self.act_list[i][2], msg) is not None:
-                print('!!!')
+                print('found an action')
                 return self.play_action(i)
 
     def battle(self):
