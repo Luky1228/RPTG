@@ -62,10 +62,10 @@ class character:
         dr = 0
         if sl in slot_dict:
             ag, dr = self.equipment[slot_dict[sl]][1:]
-        if rd(0, 100) <= (self.agility + ag) * aglm:
+        if rd(0, 100) <= (self.agility + ag) * aglm:  # npc.item
             return ['Вы уклоняетесь', None, False]
         d = int(p * (100 - dr) / 100)
-        res = self.body_map[r].take_damage(d, hpm)
+        res = self.body_map[r].take_damage(d, hpm)  # ?
         if res[2]:
             self.body_map[r] = self.body_map[l - 1]
             self.body_map.pop()
