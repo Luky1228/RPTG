@@ -104,8 +104,8 @@ class character:
     def get_spells(self):
         res = []
         for i in list(self.weapon.spells.values()):
-            res.append([i.name + ': ' + i.desc + ' (' + i.cost + ')',
-                        i.events[0].character_handler[0].replace(' s)', ' ' + i.events[0].desc + ')'),
+            res.append([i.name + ': ' + i.desc + ' (' + str(i.cost) + ')',
+                        i.events[0].character_handler[0].replace(' s)', ' ' + "'"+i.events[0].desc+"'" + ')'),
                         '(использовать ' + i.name + ')', 'sp'])
         return res
 
