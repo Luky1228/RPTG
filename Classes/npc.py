@@ -1,7 +1,7 @@
 from random import randint as rd
 from random import choice as rc
 from Classes.actions import *
-
+from math import ceil
 
 class bpart:
     def __init__(self, body_parsed):
@@ -16,6 +16,8 @@ class bpart:
             self.slot = 'none'
 
     def take_damage(self, d, hpm=100):
+        if self.hp == ' ':
+            return ['Вы уклоняетесь', None, False, 0]
         self.hp = max(0, int(hpm / 100) * self.hp - d)
         if self.hp == 0:
             return [self.destroy_desc, self.reaction, True, d]  # description, event, flag of destruction, damage
@@ -39,6 +41,7 @@ class npc:
         self.actions = actions
         self.attacks = attacks
         self.friendly = f
+        self.dead=False
 
     def isfriendly(self):
         return self.friendly
@@ -50,8 +53,8 @@ class npc:
         self.friendly = 0
         if len(self.body_map) < 1:
             return ['Противник уже мертв', None]
-        r = rd(0, l - 1)
-        res = self.body_map[r].take_damage(p)
+        r = rd(0, len(self.body_map)-1)
+        res = self.body_map[r].take_damage(p, self.health_multiplier)
         if res[2]:
             self.body_map[r] = self.body_map[-1]
             self.body_map.pop()
@@ -63,12 +66,18 @@ class npc:
         a = rc(self.attacks)
         return a.desc, int(a.dmg * self.damage_multiplier / 100)
 
+    def get_hp(self):
+        res=0
+        for i in self.body_map:
+             res+=i.hp
+        return ceil(res/len(self.body_map))
+
     def kill(self):
         p = rd(0, 100)
         for i in self.death_event:
             if i.probability >= p:
+                self.dead=True
                 return i
-
 
 class step:
     def __init__(self, s):
@@ -123,3 +132,4 @@ class spell:
         self.name = it[0]
         self.desc = it[1]
         self.events = it[2]
+        self.cost = it[3]

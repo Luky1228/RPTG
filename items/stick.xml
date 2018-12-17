@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+    <name>stick</name>
+    <desc></desc>
+    <price>1</price>
+    <type></type>
+    <slot>weapon</slot>
+    <damage_reduction></damage_reduction>
+    <damage>5</damage>
+    <aglm>0</aglm>
+    <ctb>5</ctb>
+    <spells>
+        <sp>
+            <name>smash</name>
+            <desc>Нанести сильный удар</desc>
+            <e>
+                <probability>100</probability>
+                <name>smash</name>
+                <description>Вы собираетесь с силам и наносите ваш самый лучший удар</description>
+                <room_handler></room_handler>
+                <character_handler>deal_damage(10)</character_handler>
+                <scenario_handler></scenario_handler>
+                <battle_handler></battle_handler>
+            </e>
+        </sp>
+    </spells>
+</item>

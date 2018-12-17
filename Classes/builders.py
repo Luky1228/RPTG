@@ -266,6 +266,7 @@ def load_quest_from_db(name):
 
 def read_spells(root):
     res = dict()
+    cost=10
     for child in root:
         s = read_events(child)
         for i in child:
@@ -273,7 +274,9 @@ def read_spells(root):
                 n = i.text
             if i.tag == 'desc':
                 desc = i.text
-        res[n] = spell([n, desc, s])
+            if i.tag == 'cost':
+                cost = int(i.text)
+        res[n] = spell([n, desc, s, cost])
     return res
 
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+    <name>potion</name>
+    <desc>Зелье здоровья</desc>
+    <price>10</price>
+    <type>item</type>
+    <slot></slot>
+    <damage_reduction></damage_reduction>
+    <damage></damage>
+    <aglm> </aglm>
+    <ctb></ctb>
+    <spells>
+        <sp>
+            <name>restore_hp</name>
+            <desc>Выпить зелье и восстановить здоровье</desc>
+            <e>
+                <probability>100</probability>
+                <name>restore</name>
+                <description>Вы восстанавливаете здоровье</description>
+                <room_handler></room_handler>
+                <character_handler>restore_hp()</character_handler>
+                <scenario_handler></scenario_handler>
+                <battle_handler>give_absolute_block(1)</battle_handler>
+            </e>
+        </sp>
+    </spells>
+</item>

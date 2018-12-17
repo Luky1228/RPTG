@@ -37,7 +37,7 @@
                     <desc>Король парирует!</desc>
                 </on_damage>
                 <on_destroyed>
-                    <desc>Но ломает руку...</desc>
+                    <desc>Король парирует! Но ломает руку...</desc>
                     <room_handler></room_handler>
                     <character_handler>drop_damage_to(50)</character_handler>
                 </on_destroyed>
@@ -49,7 +49,7 @@
                     <desc>Король блокирует ваш удар!</desc>
                 </on_damage>
                 <on_destroyed>
-                    <desc>Но это не помешала вам отрубить руку!</desc>
+                    <desc>Король блокирует ваш удар! Но это не помешало вам отрубить руку!</desc>
                     <room_handler></room_handler>
                     <character_handler></character_handler>
                 </on_destroyed>

@@ -10,5 +10,18 @@
     <aglm></aglm>
     <ctb></ctb>
     <spells>
+        <sp>
+            <name>assemble</name>
+            <desc>Собрать артефакт</desc>
+            <e>
+                <probability>100</probability>
+                <name>assemble</name>
+                <description>Вы собираете артефакт</description>
+                <room_handler></room_handler>
+                <character_handler>inventory_add('artifact')</character_handler>
+                <scenario_handler></scenario_handler>
+                <battle_handler></battle_handler>
+            </e>
+        </sp>
     </spells>
 </item>

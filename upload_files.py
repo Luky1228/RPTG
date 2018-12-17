@@ -29,4 +29,4 @@ def upload_rooms():
             print('already in db')
 
 
-upload_npc()
+upload_items()

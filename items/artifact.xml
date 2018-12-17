@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+    <name>artifact</name>
+    <desc>Артефакт</desc>
+    <price>10</price>
+    <type>item</type>
+    <slot></slot>
+    <damage_reduction></damage_reduction>
+    <damage></damage>
+    <aglm></aglm>
+    <ctb></ctb>
+    <spells>
+    </spells>
+</item>

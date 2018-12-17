@@ -12,15 +12,15 @@
     <spells>
         <sp>
             <name>fireball</name>
-            <desc>С помощью магии сформировавать огненный шар</desc>
+            <desc>С помощью магии сформировать огненный шар</desc>
             <e>
                 <probability>100</probability>
                 <name>fireball</name>
                 <description>Сформировав сферу достаточного размера вы направляете её на противника</description>
                 <room_handler></room_handler>
-                <character_handler></character_handler>
+                <character_handler>deal_damage(20)</character_handler>
                 <scenario_handler></scenario_handler>
-                <battle_handler>damage(target, 20)</battle_handler>
+                <battle_handler>deal_damage(20, s)</battle_handler>
             </e>
         </sp>
         <sp>
@@ -31,9 +31,9 @@
                 <name>fireball</name>
                 <description>Вы возводите ледяной барьер.</description>
                 <room_handler></room_handler>
-                <character_handler></character_handler>
+                <character_handler>give_absolute_block( s)</character_handler>
                 <scenario_handler></scenario_handler>
-                <battle_handler>give_absolute_block(1)</battle_handler>
+                <battle_handler>give_absolute_block()</battle_handler>
             </e>
         </sp>
     </spells>
