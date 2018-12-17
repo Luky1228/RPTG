@@ -74,9 +74,9 @@
             <probability>100</probability>
             <name>defeat</name>
             <description>Скелет повержен!</description>
-            <room_handler>drop_random_loot()</room_handler>
+            <room_handler></room_handler>
             <character_handler></character_handler>
-            <scenario_handler></scenario_handler>
+            <scenario_handler>drop_random_loot()</scenario_handler>
             <battle_handler></battle_handler>
         </e>
     </on_death>

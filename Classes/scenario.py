@@ -111,6 +111,9 @@ class scenario:
                     rms += self.damage(res[1])
                     desc.append(rms)
                     if self.target.dead:
+                        act=self.target.death_event[0].scenario_handler[0]
+                        dd=self.target.name + ' побежден\n' + eval('self.'+act)
+                        desc.append(dd)
                         self.room.drop_enemy(self.tid)
                         self.target=None
                         self.tid=None
@@ -122,10 +125,10 @@ class scenario:
                         rms += 'Урон: ' + str(hd[3]) + ' (осталось hp: ' + str(self.hero.get_hp()) + ')' + '\n'
                         rms += hd[0].replace('_monster_', i.name) + '\n'
                         desc.append(rms)
-
+                    self.hero.nulify()
                     return ['msgs', desc]
                 if res[2] == 'sup':
-                    return ['msgs', res[0]]
+                    return ['l', res[0]]
         for i in range(len(self.bact_list)):
             if re.search(r'' + '(' + self.bact_list[i][0].lower() + ')', msg) is not None:
                 print('!!!')
@@ -144,7 +147,9 @@ class scenario:
         if(c==len(self.main_quest.steps)):
             self.win = True
 
-
+    def drop_random_loot(self):
+        res=self.hero.inventory_add_random_item()
+        return "Вы получили " + res.split()[0]
 
     def play_action(self, i, msg=None):
         a = self.act_list[i]

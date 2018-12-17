@@ -14,7 +14,6 @@ basic_commands = [["(какой основной квест)", "s.main_quest.nam
 
 
 print(s.get_action_list())
-print(s.hero.weapon.spells)
 while True:
     msg=input().lower()
     res=s.check_for_basic_action(msg)

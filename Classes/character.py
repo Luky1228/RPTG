@@ -139,7 +139,6 @@ class character:
 
     def check_for_actions(self, msg):
         for i in range(len(self.b_act)):
-            print(msg)
             if re.search(r'' + self.b_act[i][2], msg) is not None:
                 res = eval('self.' + self.b_act[i][1])
                 return res
