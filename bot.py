@@ -2,7 +2,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 from telegram import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
 
 
-from settings import LOCAL_BOT_TOKEN
+from settings import BOT_TOKEN
 
 from Classes.scenario import *
 
@@ -16,7 +16,7 @@ class Bot:
                 'password': 'UmKm1u6l',
             }
         }
-        self.updater = Updater(LOCAL_BOT_TOKEN, request_kwargs=REQUEST_KWARGS)
+        self.updater = Updater(BOT_TOKEN, request_kwargs=REQUEST_KWARGS)
         self.dispatcher = self.updater.dispatcher
         self.setup_handlers()
         self.state = ''
@@ -104,7 +104,9 @@ class Bot:
                 if isinstance(res, list):
                     print('2.1', res)
                     if res[0] == 'b':
-                        bot.send_message(chatid, res[1])
+                        keyboard = [[KeyboardButton(elem)] for elem in res[1]]
+                        reply_markup = ReplyKeyboardMarkup(keyboard=keyboard, one_time_keyboard=True)
+                        bot.send_message(chat_id=chatid,text="*", reply_markup=reply_markup)
                     if res[0] == 'l':
                         bot.send_message(chatid, res[1])
                     if res[0] == 'msgs':
@@ -116,9 +118,10 @@ class Bot:
                 self.sens[0].check_main_quest()
             elif self.sens[0].check_for_battle():
                 print('3', res)
-                keyboard = [[elem] for elem in self.sens[0].get_battle_actions()]
+                keyboard = [[KeyboardButton(elem)] for elem in self.sens[0].get_battle_actions()]
+                print(keyboard)
                 reply_markup = ReplyKeyboardMarkup(keyboard=keyboard, one_time_keyboard=True)
-                bot.send_message(chatid, reply_markup=reply_markup)
+                bot.send_message(chat_id=chatid,text="Бой: ", reply_markup=reply_markup)
             else:
                 bot.send_message(chatid, '... and nothing happened')
             if self.sens[0].check_hero():
