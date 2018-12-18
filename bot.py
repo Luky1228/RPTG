@@ -79,7 +79,7 @@ class Bot:
             keyboard = [[KeyboardButton("The puzzle")]]
             reply_markup = ReplyKeyboardMarkup(keyboard=keyboard, one_time_keyboard=True)
             bot.send_message(chat_id=chatid, text='Got it! Now, __{}__, choose an adventure!'.format(self.character_options[-1]), parse_mode='Markdown', reply_markup=reply_markup)
-        elif self.state == 'choosing adventures' or word == 'Continue playing':
+        elif word == 'Continue playing' or self.state == 'choosing adventures':
             self.state = 'adventuring'
             #start_adventure
             c = character(self.character_options[3], self.character_options[2], int(self.character_options[1]), self.character_options[0])
@@ -93,15 +93,16 @@ class Bot:
             print(word)
             msg = word.lower()
             res = self.sens[0].check_for_basic_action(msg)
-            print(res)
+            print('0', res)
             if res is None and self.sens[0].check_for_battle():
                 res = self.sens[0].check_for_baction(msg)
-            print(res)
+            print('1',res)
             if res is None:
                 res = self.sens[0].check_for_action(msg)
-            print(res)
+            print('2',res)
             if res is not None:
                 if isinstance(res, list):
+                    print('2.1', res)
                     if res[0] == 'b':
                         bot.send_message(chatid, res[1])
                     if res[0] == 'l':
@@ -110,9 +111,14 @@ class Bot:
                         for i in res[1]:
                             bot.send_message(chatid, i)
                 else:
+                    print('2.2', res)
                     bot.send_message(chatid, res)
+                self.sens[0].check_main_quest()
             elif self.sens[0].check_for_battle():
-                bot.send_message(chatid, self.sens[0].get_battle_actions())
+                print('3', res)
+                keyboard = [[elem] for elem in self.sens[0].get_battle_actions()]
+                reply_markup = ReplyKeyboardMarkup(keyboard=keyboard, one_time_keyboard=True)
+                bot.send_message(chatid, reply_markup=reply_markup)
             else:
                 bot.send_message(chatid, '... and nothing happened')
             if self.sens[0].check_hero():
