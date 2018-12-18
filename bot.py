@@ -89,29 +89,44 @@ class Bot:
             bot.send_message(chat_id=chatid, text=self.sens[0].main_quest.desc)
             bot.send_message(chat_id=chatid, text=self.sens[0].get_action_list())
         elif self.state == 'adventuring':
-            basic_commands = [["(какой основной квест)", "self.sens[0].main_quest.name"],
-                              ["(цели|задачи) (основного квеста|" + self.sens[0].main_quest.name + ")",
-                               "self.sens[0].main_quest.describe_steps()"],
-                              ["действия", "self.sens[0].get_action_list()"]]
-            print('here')
-            res = None
-            for i in basic_commands:
-                ind = re.search(r'' + i[0], word)
-                if ind is not None:
-                    res = eval(i[1])
-                    if isinstance(res, str):
-                        bot.send_message(chatid, res)
-                    else:
-                        bot.send_message(chatid, res[0])
-                    break
+            # self.sens[0]
+            print(word)
+            msg = word.lower()
+            res = self.sens[0].check_for_basic_action(msg)
+            print(res)
+            if res is None and self.sens[0].check_for_battle():
+                res = self.sens[0].check_for_baction(msg)
+            print(res)
             if res is None:
-                res = self.sens[0].check_for_action(word)
-                if res is not None:
+                res = self.sens[0].check_for_action(msg)
+            print(res)
+            if res is not None:
+                if isinstance(res, list):
+                    if res[0] == 'b':
+                        bot.send_message(chatid, res[1])
+                    if res[0] == 'l':
+                        bot.send_message(chatid, res[1])
+                    if res[0] == 'msgs':
+                        for i in res[1]:
+                            bot.send_message(chatid, i)
+                else:
                     bot.send_message(chatid, res)
+            elif self.sens[0].check_for_battle():
+                bot.send_message(chatid, self.sens[0].get_battle_actions())
+            else:
+                bot.send_message(chatid, '... and nothing happened')
+            if self.sens[0].check_hero():
+                self.state = "gameover"
+            if self.sens[0].win:
+                self.state = "win"
         elif self.state == 'gameover':
             keyboard = [[KeyboardButton("Create a hero")]]
             reply_markup = ReplyKeyboardMarkup(keyboard=keyboard)
             bot.send_message(chat_id=chatid, text='omg u ded!create a new hero!', reply_markup=reply_markup)
+        elif self.state == 'gameover' or word == '👑':
+            keyboard = [[KeyboardButton("👑")]]
+            reply_markup = ReplyKeyboardMarkup(keyboard=keyboard)
+            bot.send_message(chat_id=chatid, text='omg u win!', reply_markup=reply_markup)
         else:
             bot.send_message(chat_id=chatid, text='Me no comprendo')
 

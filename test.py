@@ -1,3 +1,4 @@
+'''
 from Classes.scenario import *
 
 
@@ -42,3 +43,5 @@ while True:
     if(s.win):
         print(s.win_text())
         break
+
+        '''
